@@ -1,18 +1,8 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
