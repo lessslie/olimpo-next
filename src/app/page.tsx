@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import BackgroundLogo from '@/components/BackgroundLogo';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import ClassesSection from '@/components/ClassesSection';
 
 export default function Home() {
@@ -123,7 +122,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-              Nuestras Membresías
+              Planes de Membresía
             </h2>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
               Elige el plan que mejor se adapte a tus necesidades y objetivos
@@ -133,25 +132,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Plan Básico</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">MUSCULACIÓN</h3>
                 <div className="text-4xl font-extrabold text-gray-900 mb-4">
-                  $2000<span className="text-lg font-normal text-gray-500">/mes</span>
+                  $20000<span className="text-lg font-normal text-gray-500">/mes</span>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Ideal para principiantes que buscan comenzar su camino fitness.
+                  Acceso completo a la sala de musculación
                 </p>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Acceso a sala de musculación
+                    Acceso ilimitado a sala de musculación
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Horario limitado (8:00 - 18:00)
+                    Horario completo (8:00 - 22:00)
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -159,12 +158,18 @@ export default function Home() {
                     </svg>
                     Evaluación inicial
                   </li>
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Rutina personalizada
+                  </li>
                 </ul>
                 <button 
                   onClick={() => router.push('/memberships')}
                   className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors"
                 >
-                  Elegir Plan
+                  Consultar
                 </button>
               </div>
             </div>
@@ -174,69 +179,75 @@ export default function Home() {
                 POPULAR
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Plan Estándar</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">KICKBOXING</h3>
                 <div className="text-4xl font-extrabold text-gray-900 mb-4">
-                  $3000<span className="text-lg font-normal text-gray-500">/mes</span>
+                  <span className="text-2xl">Según frecuencia</span><span className="text-lg font-normal text-gray-500">/mes</span>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Nuestro plan más popular con acceso a más servicios.
+                  Clases de kickboxing con entrenadores profesionales
                 </p>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Acceso a sala de musculación
+                    Clases de kickboxing
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Acceso a clases grupales
+                    Equipamiento incluido
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Horario completo
+                    Entrenadores certificados
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Evaluación mensual
+                    Horarios flexibles
                   </li>
                 </ul>
                 <button 
                   onClick={() => router.push('/memberships')}
                   className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors"
                 >
-                  Elegir Plan
+                  Consultar
                 </button>
               </div>
             </div>
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Plan Premium</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">PERSONALIZADO</h3>
                 <div className="text-4xl font-extrabold text-gray-900 mb-4">
-                  $4500<span className="text-lg font-normal text-gray-500">/mes</span>
+                  <span className="text-2xl">Según frecuencia</span><span className="text-lg font-normal text-gray-500">/mes</span>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  La experiencia completa con todos los servicios incluidos.
+                  Entrenamiento personalizado adaptado a tus objetivos
                 </p>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Todo lo incluido en Plan Estándar
+                    Entrenador personal exclusivo
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Entrenador personal (2 sesiones)
+                    Plan nutricional
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Seguimiento de progreso
                   </li>
                   <li className="flex items-center">
                     <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -244,18 +255,12 @@ export default function Home() {
                     </svg>
                     Evaluación semanal
                   </li>
-                  <li className="flex items-center">
-                    <svg className="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    Acceso a sauna
-                  </li>
                 </ul>
                 <button 
                   onClick={() => router.push('/memberships')}
                   className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors"
                 >
-                  Elegir Plan
+                  Consultar
                 </button>
               </div>
             </div>
@@ -271,9 +276,6 @@ export default function Home() {
       
       {/* Classes Section */}
       <ClassesSection />
-      
-      {/* Testimonials Section */}
-      <TestimonialsSection />
       
       {/* CTA Section */}
       <div className="bg-gray-900 text-white">
