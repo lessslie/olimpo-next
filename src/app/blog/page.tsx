@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import BackgroundLogo from '@/components/BackgroundLogo';
 import toast from 'react-hot-toast';
+import { blogService } from '@/services/api';
 
 interface BlogPost {
   id: string;
@@ -21,19 +22,46 @@ interface BlogPost {
 const BlogPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedTag, setSelectedTag] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        // Aquí se implementaría la llamada a la API para obtener los posts
-        // Por ahora, usamos datos de ejemplo
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setPosts(sampleBlogPosts);
+        setLoading(true);
+        // Obtener posts del backend
+        const postsData = await blogService.getAll();
+        setPosts(postsData);
+
+        // Extraer categorías únicas
+        const uniqueCategories = Array.from(
+          new Set(postsData.map((post: BlogPost) => post.category))
+        );
+        setCategories(uniqueCategories as string[]);
+
+        // Obtener tags del backend
+        const tagsData = await blogService.getTags();
+        setTags(tagsData as string[]);
+
       } catch (error) {
-        console.error('Error al cargar los artículos del blog:', error);
-        toast.error('No se pudieron cargar los artículos del blog');
+        console.error('Error al cargar los posts del blog:', error);
+        // Usar datos de ejemplo como fallback
+        setPosts(sampleBlogPosts);
+        
+        // Extraer categorías únicas de los datos de ejemplo
+        const uniqueCategories = Array.from(
+          new Set(sampleBlogPosts.map(post => post.category))
+        );
+        setCategories(uniqueCategories);
+        
+        // Extraer tags únicos de los datos de ejemplo
+        const allTags = sampleBlogPosts.flatMap(post => post.tags);
+        const uniqueTags = Array.from(new Set(allTags));
+        setTags(uniqueTags);
       } finally {
         setLoading(false);
       }

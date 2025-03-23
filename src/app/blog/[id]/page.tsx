@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import BackgroundLogo from '@/components/BackgroundLogo';
 import toast from 'react-hot-toast';
+import { blogService } from '@/services/api';
 
 interface BlogPost {
   id: string;
@@ -33,15 +34,27 @@ const BlogPostDetail = ({ params }: BlogPostDetailProps) => {
   useEffect(() => {
     const fetchBlogPost = async () => {
       try {
-        // Aquí se implementaría la llamada a la API para obtener el post específico
-        // Por ahora, usamos datos de ejemplo
-        await new Promise(resolve => setTimeout(resolve, 800));
+        setLoading(true);
         
+        // Obtener el post específico del backend
+        const postData = await blogService.getById(params.id);
+        setPost(postData);
+        
+        // Obtener posts relacionados (misma categoría)
+        const allPosts = await blogService.getAll();
+        const related = allPosts
+          .filter((p: BlogPost) => p.id !== params.id && p.category === postData.category)
+          .slice(0, 3);
+        setRelatedPosts(related);
+      } catch (error) {
+        console.error('Error al cargar el artículo del blog:', error);
+        
+        // Usar datos de ejemplo como fallback
         const foundPost = sampleBlogPosts.find(p => p.id === params.id);
         if (foundPost) {
           setPost(foundPost);
           
-          // Obtener posts relacionados (misma categoría)
+          // Obtener posts relacionados (misma categoría) de los datos de ejemplo
           const related = sampleBlogPosts
             .filter(p => p.id !== params.id && p.category === foundPost.category)
             .slice(0, 3);
@@ -50,17 +63,12 @@ const BlogPostDetail = ({ params }: BlogPostDetailProps) => {
           toast.error('Artículo no encontrado');
           router.push('/blog');
         }
-      } catch (error) {
-        console.error('Error al cargar el artículo:', error);
-        toast.error('No se pudo cargar el artículo');
       } finally {
         setLoading(false);
       }
     };
 
-    if (params.id) {
-      fetchBlogPost();
-    }
+    fetchBlogPost();
   }, [params.id, router]);
 
   if (loading) {

@@ -308,6 +308,34 @@ const productsService = {
   },
 };
 
+const uploadsService = {
+  // Subir una imagen
+  upload: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return await fetchAPI('/uploads', {
+      method: 'POST',
+      headers: {
+        // No incluir Content-Type, el navegador lo establecerá automáticamente con el boundary
+      },
+      body: formData,
+    });
+  },
+
+  // Eliminar una imagen
+  delete: async (filename: string) => {
+    return await fetchAPI(`/uploads/${filename}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Obtener la URL completa de una imagen
+  getImageUrl: (filename: string) => {
+    return `${API_URL}/uploads/${filename}`;
+  }
+};
+
 export {
   fetchAPI,
   authService,
@@ -315,4 +343,5 @@ export {
   attendanceService,
   blogService,
   productsService,
+  uploadsService,
 };

@@ -37,6 +37,18 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold mb-6">Panel de Administración</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
+        {/* Dashboard */}
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4">Dashboard</h2>
+          <p className="text-gray-600 mb-4">Visualiza estadísticas y métricas del gimnasio</p>
+          <button 
+            onClick={() => router.push('/admin/dashboard')}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          >
+            Ver Dashboard
+          </button>
+        </div>
+        
         {/* Gestión de Usuarios */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">Gestión de Usuarios</h2>
@@ -70,6 +82,30 @@ const AdminDashboard = () => {
             className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
           >
             Ver Asistencias
+          </button>
+        </div>
+
+        {/* Gestión de Notificaciones */}
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4">Notificaciones</h2>
+          <p className="text-gray-600 mb-4">Envía notificaciones a los usuarios por email o WhatsApp</p>
+          <button 
+            onClick={() => router.push('/admin/notifications')}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          >
+            Gestionar Notificaciones
+          </button>
+        </div>
+
+        {/* Gestión de Membresías */}
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4">Gestión de Membresías</h2>
+          <p className="text-gray-600 mb-4">Administra las membresías de los usuarios</p>
+          <button 
+            onClick={() => router.push('/admin/memberships')}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          >
+            Administrar Membresías
           </button>
         </div>
 
