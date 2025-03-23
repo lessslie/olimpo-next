@@ -1,6 +1,24 @@
-.git
+# dependencies
 node_modules
-.next
-.env.local
-README.md
-MIGRATION.md
+.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+
+# misc
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
