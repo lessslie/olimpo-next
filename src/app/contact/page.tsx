@@ -207,8 +207,8 @@ const ContactPage = () => {
                   <div className="ml-3 text-sm text-gray-500">
                     <p className="font-medium text-gray-700">Email</p>
                     <p>
-                      <a href="mailto:info@olimpogym.com" className="hover:text-gray-900">
-                        info@olimpogym.com
+                      <a href="mailto:walterdamianmaidana100@gmail.com" className="hover:text-gray-900">
+                        walterdamianmaidana100@gmail.com
                       </a>
                     </p>
                   </div>

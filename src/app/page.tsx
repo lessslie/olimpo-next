@@ -19,7 +19,7 @@ export default function Home() {
           className="absolute inset-0 bg-black"
           style={{
             backgroundImage: 'url(/images/olimpoNegro.jpeg)',
-            backgroundPosition: '80% center',
+            backgroundPosition: '95% center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'contain'
           }}
