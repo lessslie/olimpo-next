@@ -2,16 +2,23 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Hero = () => {
   return (
     <div className="relative bg-gray-900">
       <div className="absolute inset-0">
-        <img
-          className="w-full h-full object-cover"
-          src="/hero-bg.jpg"
-          alt="Gimnasio Olimpo"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            className="object-cover"
+            src="/hero-bg.jpg"
+            alt="Gimnasio Olimpo"
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
         <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
       </div>
       <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">

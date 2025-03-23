@@ -4,6 +4,13 @@ import { useEffect } from 'react';
 import BackgroundLogo from '@/components/BackgroundLogo';
 import Image from 'next/image';
 
+// Extender la interfaz Window para incluir google
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 const LocationPage = () => {
   // Cargar el script de Google Maps cuando el componente se monte
   useEffect(() => {
