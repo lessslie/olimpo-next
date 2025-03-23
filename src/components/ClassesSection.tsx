@@ -21,14 +21,36 @@ interface GymClass {
 const classesData: GymClass[] = [
   {
     id: '1',
-    name: 'Spinning',
-    description: 'Clase de ciclismo indoor de alta intensidad con música motivadora. Quema calorías y mejora tu resistencia cardiovascular.',
-    instructor: 'Carlos Rodríguez',
-    schedule: ['Lunes 18:00', 'Miércoles 18:00', 'Viernes 18:00'],
-    image: '/images/spinning.jpg',
+    name: 'Entrenamiento Pliométrico',
+    description: 'Entrenamiento de alta intensidad que mejora tu explosividad en el fútbol, pádel, vóley, hockey, atletismo y deportes de contacto.',
+    instructor: 'Profesor Vani',
+    schedule: ['Martes 15:00', 'Martes 19:00', 'Jueves 15:00', 'Jueves 19:00'],
+    image: '/images/EntrenamientoPliometrico.jpeg',
     level: 'Todos los niveles',
-    duration: 45,
-    available: false
+    duration: 60,
+    available: true
+  },
+  {
+    id: '7',
+    name: 'Kickboxing',
+    description: 'Entrenamiento de alta intensidad que combina técnicas de boxeo y artes marciales para mejorar la condición física y aprender defensa personal.',
+    instructor: 'Roberto Méndez',
+    schedule: ['Lunes 19:00', 'Miércoles 19:00', 'Viernes 19:00'],
+    image: '/images/kickboxing.jpg',
+    level: 'Todos los niveles',
+    duration: 60,
+    available: true
+  },
+  {
+    id: '5',
+    name: 'Sala de Musculación',
+    description: 'Acceso completo a nuestra sala de musculación equipada con máquinas modernas y pesos libres para tu entrenamiento personalizado.',
+    instructor: 'Varios entrenadores',
+    schedule: ['Lunes a Viernes 8:00 - 22:00', 'Sábados 9:00 - 13:00'],
+    image: '/images/gym-1.jpg',
+    level: 'Todos los niveles',
+    duration: 0,
+    available: true
   },
   {
     id: '2',
@@ -64,17 +86,6 @@ const classesData: GymClass[] = [
     available: false
   },
   {
-    id: '5',
-    name: 'Pilates',
-    description: 'Fortalece tu core, mejora la postura y aumenta la flexibilidad con ejercicios controlados de bajo impacto.',
-    instructor: 'Sofía Pérez',
-    schedule: ['Lunes 09:00', 'Miércoles 09:00', 'Viernes 09:00'],
-    image: '/images/pilates.jpg',
-    level: 'Todos los niveles',
-    duration: 55,
-    available: false
-  },
-  {
     id: '6',
     name: 'Body Pump',
     description: 'Entrenamiento con pesas al ritmo de la música que tonifica y fortalece todos los grupos musculares principales.',
@@ -84,17 +95,6 @@ const classesData: GymClass[] = [
     level: 'Intermedio',
     duration: 45,
     available: false
-  },
-  {
-    id: '7',
-    name: 'Kickboxing',
-    description: 'Entrenamiento de alta intensidad que combina técnicas de boxeo y artes marciales para mejorar la condición física y aprender defensa personal.',
-    instructor: 'Roberto Méndez',
-    schedule: ['Lunes 19:00', 'Miércoles 19:00', 'Viernes 19:00'],
-    image: '/images/kickboxing.jpg',
-    level: 'Todos los niveles',
-    duration: 60,
-    available: true
   }
 ];
 

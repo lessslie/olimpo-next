@@ -14,18 +14,18 @@ export default function Home() {
       <BackgroundLogo opacity={0.03} />
       
       {/* Hero Section */}
-      <div className="relative bg-gray-900 text-white">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src="/images/gym-hero.jpg"
-            alt="Gimnasio Olimpo"
-            fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
-          />
-          <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="relative bg-black text-white min-h-[700px]">
+        <div 
+          className="absolute inset-0 bg-black"
+          style={{
+            backgroundImage: 'url(/images/olimpoNegro.jpeg)',
+            backgroundPosition: '80% center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain'
+          }}
+        >
         </div>
-        
+        <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
@@ -133,8 +133,8 @@ export default function Home() {
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">MUSCULACIÓN</h3>
-                <div className="text-4xl font-extrabold text-gray-900 mb-4">
-                  $20000<span className="text-lg font-normal text-gray-500">/mes</span>
+                <div className="text-xl font-bold text-gray-900 mb-4">
+                  Consultar precio actual
                 </div>
                 <p className="text-gray-600 mb-6">
                   Acceso completo a la sala de musculación

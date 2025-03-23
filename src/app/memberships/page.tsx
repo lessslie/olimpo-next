@@ -11,6 +11,7 @@ interface MembershipPlan {
   name: string;
   description: string;
   price: number | string;
+  priceDisplay?: string;
   duration_days: number;
   features: string[];
   is_popular?: boolean;
@@ -27,7 +28,8 @@ const MembershipsPage = () => {
       id: '1',
       name: 'MUSCULACIÓN',
       description: 'Acceso completo a la sala de musculación',
-      price: 20000,
+      price: 0,
+      priceDisplay: 'Consultar precio actual',
       duration_days: 30,
       features: [
         'Acceso ilimitado a sala de musculación',
@@ -83,7 +85,7 @@ const MembershipsPage = () => {
     let mensaje = '';
     
     if (plan.id === '1') {
-      mensaje = `Hola, estoy interesado/a en el plan de MUSCULACIÓN por $${plan.price}/mes. Me gustaría obtener más información sobre cómo inscribirme y los horarios disponibles.`;
+      mensaje = `Hola, estoy interesado/a en el plan de MUSCULACIÓN. Me gustaría obtener más información sobre cómo inscribirme y los horarios disponibles.`;
     } else if (plan.id === '2') {
       mensaje = `Hola, estoy interesado/a en el plan de KICKBOXING. Me gustaría saber los precios según la frecuencia semanal y los horarios de las clases disponibles.`;
     } else if (plan.id === '3') {
@@ -136,9 +138,9 @@ const MembershipsPage = () => {
                 <p className="mt-1 text-sm text-gray-500">{plan.description}</p>
                 <p className="mt-4">
                   <span className="text-3xl font-extrabold text-gray-900">
-                    {typeof plan.price === 'number' ? `$${plan.price}` : plan.price}
+                    {plan.priceDisplay || (typeof plan.price === 'number' ? `$${plan.price}` : plan.price)}
                   </span>
-                  <span className="text-base font-medium text-gray-500">/mes</span>
+                  {!plan.priceDisplay && <span className="text-base font-medium text-gray-500">/mes</span>}
                 </p>
                 <button
                   onClick={() => handleSelectPlan(plan)}
