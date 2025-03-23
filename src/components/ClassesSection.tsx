@@ -14,6 +14,7 @@ interface GymClass {
   image: string;
   level: 'Principiante' | 'Intermedio' | 'Avanzado' | 'Todos los niveles';
   duration: number; // en minutos
+  available?: boolean; // Nuevo campo para indicar si la clase está disponible
 }
 
 // Datos de ejemplo para las clases
@@ -26,7 +27,8 @@ const classesData: GymClass[] = [
     schedule: ['Lunes 18:00', 'Miércoles 18:00', 'Viernes 18:00'],
     image: '/images/spinning.jpg',
     level: 'Todos los niveles',
-    duration: 45
+    duration: 45,
+    available: false
   },
   {
     id: '2',
@@ -36,7 +38,8 @@ const classesData: GymClass[] = [
     schedule: ['Martes 10:00', 'Jueves 10:00', 'Sábado 09:00'],
     image: '/images/yoga.jpg',
     level: 'Todos los niveles',
-    duration: 60
+    duration: 60,
+    available: false
   },
   {
     id: '3',
@@ -46,7 +49,8 @@ const classesData: GymClass[] = [
     schedule: ['Lunes 20:00', 'Miércoles 20:00', 'Viernes 20:00'],
     image: '/images/crossfit.jpg',
     level: 'Intermedio',
-    duration: 60
+    duration: 60,
+    available: false
   },
   {
     id: '4',
@@ -56,7 +60,8 @@ const classesData: GymClass[] = [
     schedule: ['Martes 19:00', 'Jueves 19:00', 'Sábado 11:00'],
     image: '/images/zumba.jpg',
     level: 'Todos los niveles',
-    duration: 50
+    duration: 50,
+    available: false
   },
   {
     id: '5',
@@ -66,7 +71,8 @@ const classesData: GymClass[] = [
     schedule: ['Lunes 09:00', 'Miércoles 09:00', 'Viernes 09:00'],
     image: '/images/pilates.jpg',
     level: 'Todos los niveles',
-    duration: 55
+    duration: 55,
+    available: false
   },
   {
     id: '6',
@@ -76,7 +82,19 @@ const classesData: GymClass[] = [
     schedule: ['Martes 18:00', 'Jueves 18:00', 'Sábado 10:00'],
     image: '/images/bodypump.jpg',
     level: 'Intermedio',
-    duration: 45
+    duration: 45,
+    available: false
+  },
+  {
+    id: '7',
+    name: 'Kickboxing',
+    description: 'Entrenamiento de alta intensidad que combina técnicas de boxeo y artes marciales para mejorar la condición física y aprender defensa personal.',
+    instructor: 'Roberto Méndez',
+    schedule: ['Lunes 19:00', 'Miércoles 19:00', 'Viernes 19:00'],
+    image: '/images/kickboxing.jpg',
+    level: 'Todos los niveles',
+    duration: 60,
+    available: true
   }
 ];
 
@@ -148,7 +166,12 @@ const ClassesSection: React.FC = () => {
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p className="ml-2 text-sm text-gray-500">{gymClass.schedule[0]}</p>
+                  <div className="ml-2">
+                    <p className="text-sm text-gray-500">{gymClass.schedule[0]}</p>
+                    {!gymClass.available && (
+                      <span className="text-xs font-semibold text-amber-600">PRÓXIMAMENTE</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,6 +254,9 @@ const ClassesSection: React.FC = () => {
                               <li key={index} className="text-sm text-gray-500">{time}</li>
                             ))}
                           </ul>
+                          {!selectedClass.available && (
+                            <p className="mt-2 text-sm font-semibold text-amber-600">PRÓXIMAMENTE</p>
+                          )}
                         </div>
                       </div>
                       
@@ -247,12 +273,13 @@ const ClassesSection: React.FC = () => {
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button 
-                  type="button" 
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-900 text-base font-medium text-white hover:bg-gray-800 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+                <Link 
+                  href={selectedClass.available ? "/contact" : "#"}
+                  className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 ${selectedClass.available ? 'bg-gray-900 hover:bg-gray-800' : 'bg-gray-400 cursor-not-allowed'} text-base font-medium text-white focus:outline-none sm:ml-3 sm:w-auto sm:text-sm`}
+                  onClick={(e) => !selectedClass.available && e.preventDefault()}
                 >
-                  Reservar Clase
-                </button>
+                  {selectedClass.available ? 'Reservar Clase' : 'Próximamente'}
+                </Link>
                 <button 
                   type="button" 
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"

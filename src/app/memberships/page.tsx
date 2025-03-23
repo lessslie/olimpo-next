@@ -5,13 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import BackgroundLogo from '@/components/BackgroundLogo';
 import toast from 'react-hot-toast';
-import { membershipsService } from '@/services/api';
 
 interface MembershipPlan {
   id: string;
   name: string;
   description: string;
-  price: number;
+  price: number | string;
   duration_days: number;
   features: string[];
   is_popular?: boolean;
@@ -20,36 +19,80 @@ interface MembershipPlan {
 const MembershipsPage = () => {
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
-  const [plans, setPlans] = useState<MembershipPlan[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchMemberships = async () => {
-      try {
-        const data = await membershipsService.getAll();
-        setPlans(data);
-      } catch (error) {
-        console.error('Error al cargar membresías:', error);
-        toast.error('No se pudieron cargar los planes de membresía');
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Planes actualizados según solicitud
+  const defaultPlans: MembershipPlan[] = [
+    {
+      id: '1',
+      name: 'MUSCULACIÓN',
+      description: 'Acceso completo a la sala de musculación',
+      price: 20000,
+      duration_days: 30,
+      features: [
+        'Acceso ilimitado a sala de musculación',
+        'Horario completo (8:00 - 22:00)',
+        'Evaluación inicial',
+        'Rutina personalizada',
+        'Acceso a vestuarios',
+      ],
+    },
+    {
+      id: '2',
+      name: 'KICKBOXING',
+      description: 'Clases de kickboxing con entrenadores profesionales',
+      price: 'Según frecuencia',
+      duration_days: 30,
+      features: [
+        'Clases de kickboxing',
+        'Equipamiento incluido',
+        'Entrenadores certificados',
+        'Acceso a vestuarios',
+        'Horarios flexibles',
+      ],
+      is_popular: true,
+    },
+    {
+      id: '3',
+      name: 'PERSONALIZADO',
+      description: 'Entrenamiento personalizado adaptado a tus objetivos',
+      price: 'Según frecuencia',
+      duration_days: 30,
+      features: [
+        'Entrenador personal exclusivo',
+        'Plan nutricional',
+        'Seguimiento de progreso',
+        'Horarios a convenir',
+        'Acceso completo a todas las instalaciones',
+        'Evaluación semanal',
+      ],
+    },
+  ];
 
-    fetchMemberships();
+  useEffect(() => {
+    // Simulamos una carga breve para mostrar el spinner
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSelectPlan = (plan: MembershipPlan) => {
-    if (!isAuthenticated) {
-      toast.error('Debes iniciar sesión para adquirir una membresía');
-      router.push('/login');
-      return;
+    // Crear mensaje predefinido según el plan seleccionado
+    let mensaje = '';
+    
+    if (plan.id === '1') {
+      mensaje = `Hola, estoy interesado/a en el plan de MUSCULACIÓN por $${plan.price}/mes. Me gustaría obtener más información sobre cómo inscribirme y los horarios disponibles.`;
+    } else if (plan.id === '2') {
+      mensaje = `Hola, estoy interesado/a en el plan de KICKBOXING. Me gustaría saber los precios según la frecuencia semanal y los horarios de las clases disponibles.`;
+    } else if (plan.id === '3') {
+      mensaje = `Hola, estoy interesado/a en el plan PERSONALIZADO. Me gustaría recibir información sobre los precios según la frecuencia semanal y coordinar una entrevista con un entrenador.`;
     }
-
-    // Aquí se podría implementar la lógica para procesar el pago
-    // Por ahora, simplemente redirigimos al dashboard
-    toast.success(`Has seleccionado el plan ${plan.name}`);
-    router.push('/dashboard');
+    
+    // Redirigir a la página de contacto con el mensaje predefinido
+    // Usamos encodeURIComponent para asegurar que el mensaje se transmita correctamente en la URL
+    router.push(`/contact?message=${encodeURIComponent(mensaje)}`);
   };
 
   if (loading) {
@@ -59,53 +102,6 @@ const MembershipsPage = () => {
       </div>
     );
   }
-
-  // Si no hay planes disponibles en la API, mostramos planes predeterminados
-  const defaultPlans: MembershipPlan[] = [
-    {
-      id: '1',
-      name: 'Plan Básico',
-      description: 'Ideal para principiantes',
-      price: 2000,
-      duration_days: 30,
-      features: [
-        'Acceso a sala de musculación',
-        'Horario limitado (8:00 - 18:00)',
-        'Evaluación inicial',
-      ],
-    },
-    {
-      id: '2',
-      name: 'Plan Estándar',
-      description: 'Nuestro plan más popular',
-      price: 3000,
-      duration_days: 30,
-      features: [
-        'Acceso a sala de musculación',
-        'Acceso a clases grupales',
-        'Horario completo',
-        'Evaluación mensual',
-      ],
-      is_popular: true,
-    },
-    {
-      id: '3',
-      name: 'Plan Premium',
-      description: 'La experiencia completa',
-      price: 4500,
-      duration_days: 30,
-      features: [
-        'Acceso a sala de musculación',
-        'Acceso a clases grupales',
-        'Horario completo',
-        'Evaluación semanal',
-        'Entrenador personal (2 sesiones)',
-        'Acceso a sauna',
-      ],
-    },
-  ];
-
-  const displayPlans = plans.length > 0 ? plans : defaultPlans;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -121,7 +117,7 @@ const MembershipsPage = () => {
         </div>
 
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:grid-cols-3">
-          {displayPlans.map((plan) => (
+          {defaultPlans.map((plan) => (
             <div
               key={plan.id}
               className={`bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 ${
@@ -139,14 +135,16 @@ const MembershipsPage = () => {
                 <h3 className="text-lg font-medium text-gray-900">{plan.name}</h3>
                 <p className="mt-1 text-sm text-gray-500">{plan.description}</p>
                 <p className="mt-4">
-                  <span className="text-3xl font-extrabold text-gray-900">${plan.price}</span>
+                  <span className="text-3xl font-extrabold text-gray-900">
+                    {typeof plan.price === 'number' ? `$${plan.price}` : plan.price}
+                  </span>
                   <span className="text-base font-medium text-gray-500">/mes</span>
                 </p>
                 <button
                   onClick={() => handleSelectPlan(plan)}
                   className="mt-8 block w-full bg-gray-900 border border-gray-900 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-700"
                 >
-                  Seleccionar plan
+                  Consultar
                 </button>
               </div>
               <div className="pt-6 pb-8 px-6">
@@ -179,8 +177,8 @@ const MembershipsPage = () => {
         <div className="mt-12 text-center">
           <p className="text-base text-gray-500">
             ¿Tienes preguntas sobre nuestros planes? Contáctanos al{' '}
-            <a href="tel:+123456789" className="font-medium text-gray-900 underline">
-              +54 11 1234-5678
+            <a href="tel:+542304355852" className="font-medium text-gray-900 underline">
+              +54 2304355852
             </a>{' '}
             o visita nuestro gimnasio.
           </p>

@@ -40,11 +40,19 @@ const nextConfig = {
   },
   // Configuración para permitir imágenes externas
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com'],
+    // Eliminar domains y usar solo remotePatterns para evitar la advertencia
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'source.unsplash.com',
       },
     ],
   },

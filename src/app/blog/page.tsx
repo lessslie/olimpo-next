@@ -22,7 +22,6 @@ const BlogPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -43,14 +42,10 @@ const BlogPage = () => {
     fetchBlogPosts();
   }, []);
 
-  const categories = ['all', ...Array.from(new Set(posts.map(post => post.category)))];
-
   const filteredPosts = posts.filter(post => {
-    const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesCategory && matchesSearch;
+    return post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
   });
 
   const handlePostClick = (postId: string) => {
@@ -78,24 +73,9 @@ const BlogPage = () => {
           </p>
         </div>
 
-        {/* Filtros y búsqueda */}
-        <div className="mt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${
-                  activeCategory === category
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                }`}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            ))}
-          </div>
-          <div className="w-full md:w-auto">
+        {/* Búsqueda */}
+        <div className="mt-8 flex justify-center">
+          <div className="w-full max-w-md">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -137,9 +117,6 @@ const BlogPage = () => {
                 </div>
                 <div className="p-6">
                   <div className="flex items-center space-x-2 mb-2">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                      {post.category}
-                    </span>
                     <span className="text-sm text-gray-500">{post.date}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h3>
