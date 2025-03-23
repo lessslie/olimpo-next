@@ -40,7 +40,7 @@ const nextConfig = {
   },
   // Configuración para permitir imágenes externas
   images: {
-    // Eliminar domains y usar solo remotePatterns para evitar la advertencia
+    domains: ['images.unsplash.com', 'via.placeholder.com', 'source.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -58,6 +58,12 @@ const nextConfig = {
   },
   // Asegurarse de que la aplicación funcione correctamente en Vercel
   output: 'standalone',
+  // Deshabilitar compresión estática para evitar problemas con Vercel
+  compress: false,
+  // Configuración para manejar correctamente las rutas dinámicas
+  experimental: {
+    scrollRestoration: true
+  }
 };
 
 module.exports = nextConfig;

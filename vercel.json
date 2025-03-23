@@ -1,9 +1,19 @@
 {
   "version": 2,
+  "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+  "outputDirectory": ".next",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1",
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/404"
+    }
   ]
 }
