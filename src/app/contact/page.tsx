@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import BackgroundLogo from '@/components/BackgroundLogo';
 import toast from 'react-hot-toast';
@@ -12,7 +12,8 @@ interface ContactFormData {
   message: string;
 }
 
-const ContactPage = () => {
+// Componente que utiliza useSearchParams
+function ContactForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState<ContactFormData>({
@@ -70,6 +71,77 @@ ${formData.message}`;
   };
 
   return (
+    <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          Nombre completo *
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={formData.name}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          Email *
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+          Teléfono
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          id="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+          Mensaje *
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          rows={4}
+          value={formData.message}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+          required
+        />
+      </div>
+      <div>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        >
+          {isSubmitting ? 'Enviando...' : 'Enviar mensaje por WhatsApp'}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+const ContactPage = () => {
+  return (
     <div className="min-h-screen bg-gray-50 py-12">
       <BackgroundLogo opacity={0.03} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,79 +158,12 @@ ${formData.message}`;
           <div className="bg-white shadow overflow-hidden rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium text-gray-900">Envíanos un mensaje</h3>
-              <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Nombre completo *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                    Teléfono
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                    Mensaje *
-                  </label>
-                  <textarea
-                    name="message"
-                    id="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? 'Enviando...' : 'Enviar mensaje por WhatsApp'}
-                  </button>
-                </div>
-              </form>
+              <Suspense fallback={<div>Cargando formulario...</div>}>
+                <ContactForm />
+              </Suspense>
             </div>
           </div>
-          
+
           <div className="bg-white shadow overflow-hidden rounded-lg divide-y divide-gray-200">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium text-gray-900">Información de contacto</h3>
